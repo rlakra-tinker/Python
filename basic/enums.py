@@ -107,9 +107,11 @@ shape = Shape.DIAMOND
 print(shape)
 shape = Shape.DIAMOND_ALIAS
 print(shape)
+# Iterating over the members of an enum does not provide the aliases:
 shapes = list(Shape)
 print(shapes)
 print()
+
 # Note that the aliases Shape.DIAMOND_ALIAS and WeekDay.WEEKEND aren’t shown.
 # The special 'attribute __members__' is a read-only ordered mapping of names to members.
 # It includes all names defined in the enumeration, including the aliases:
@@ -119,8 +121,9 @@ for name, shape in Shape.__members__.items():
     print(f"{name}, {shape}")
 
 print()
+# The special attribute __members__ is a read-only ordered mapping of names to members.
+# It includes all names defined in the enumeration, including the aliases:
 print("Print all Enums:")
-# print(list(Shape.__members__.items()))
 print(Shape.allShapes())
 print()
 
@@ -148,8 +151,24 @@ class Status(Enum):
         return name.lower()
 
     ENABLED = auto()
-    DISABLE = auto()
+    DISABLED = auto()
+    MODIFIED = auto()
     DELETED = auto()
+
+    """
+    _missing_(cls, value)
+    A classmethod for looking up values not found in cls. 
+    By default it does nothing, but can be overridden to implement custom search behavior:
+    """
+    @classmethod
+    def _missing_(cls, value):
+        value = value.lower()
+        for member in cls:
+            if member.value == value:
+                return member
+
+        return None
+
 
 print()
 statuses = list(Status)
@@ -198,4 +217,97 @@ lowerCaseOrdinals = list(LowerCaseOrdinal)
 print(f"lowerCaseOrdinals={lowerCaseOrdinals}")
 print()
 
+# Enumeration members are compared by identity:
+print()
+status = Status.ENABLED
+print(f"status={status} is enabled:{status is Status.ENABLED}")
+print(f"status={status} is disabled:{status is Status.DISABLED}")
+print(f"status={status} is enabled:{status == 'Status.ENABLED'}")
+print(f"status={status} is enabled:{status.value == 'Status.ENABLED'}")
+print(f"Length of {Status} is {len(Status)}")
+print(f"Reversed {Status} are: {list(reversed(Status))}")
+print()
+camelCaseEnabled = 'eNableD'
+print(f"{camelCaseEnabled} equals to {Status(camelCaseEnabled)}")
+print()
 
+from enum import IntEnum, IntFlag
+
+class EvenOdd(IntFlag):
+    EVEN = auto()
+    ODD = auto()
+
+print()
+print("EvenOdd")
+evenAndOdds = list(EvenOdd)
+print(f"evenAndOdds={evenAndOdds}")
+print()
+
+class LogType(IntEnum):
+    ALL = auto()
+    DEBUG = auto()
+    INFO = auto()
+    WARN = auto()
+    ERROR = auto()
+
+print()
+print("LogType")
+logTypes = list(LogType)
+print(f"logTypes={logTypes}")
+# assert LogType.INFO == "INFO"
+print()
+
+import sys
+
+print()
+print("Sys Version: {sys.version_info}")
+print()
+# String Enum
+if sys.version_info >= (3, 11):
+    from enum import StrEnum
+    # from strenum import StrEnum
+    class HttpMethod(StrEnum):
+        GET = auto()
+        HEAD = auto()
+        POST = auto()
+        PUT = auto()
+        DELETE = auto()
+        CONNECT = auto()
+        OPTIONS = auto()
+        TRACE = auto()
+        PATCH = auto()
+else:
+    @unique
+    class HttpMethod(AutoName):
+        CONNECT = auto()
+        HEAD = auto()
+        GET = auto()
+        POST = auto()
+        PUT = auto()
+        DELETE = auto()
+        OPTIONS = auto()
+        TRACE = auto()
+        PATCH = auto()
+
+        """
+        _missing_(cls, value)
+        A classmethod for looking up values not found in cls. 
+        By default it does nothing, but can be overridden to implement custom search behavior:
+        """
+        @classmethod
+        def _missing_(cls, value):
+            value = value.upper()
+            for member in cls:
+                if member.value == value:
+                    return member
+
+            return None
+
+print()
+print("HttpMethod")
+httpMethods = list(HttpMethod)
+print(httpMethods)
+print()
+httpMethod = 'Get'
+print(f"{httpMethod} equals to {HttpMethod(httpMethod)}")
+print()
