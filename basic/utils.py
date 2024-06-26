@@ -1,14 +1,41 @@
-import enum
+"""Implements ThreadPoolExecutor."""
+
+__author__ = 'Rohtash Lakra (work.lakra@gmail.com)'
+
 import uuid
 from enum import Enum
 from enums import HttpMethod
 
 class Utils(Enum):
 
+    """
+    Prints Arguments
+    """
+    @staticmethod
+    def print_args(*args):
+        for arg in args:
+            print(arg)
+
+
+    """
+    Prints Keyword Arguments
+    """
+    @staticmethod
+    def print_kwargs(**kwargs):
+        # print(f"kwargs={kwargs}")
+        for key, value in kwargs.items():
+            print("%s = %s" % (key, value))
+
+    """
+    Generates Unique UUID
+    """
     @classmethod
     def generate_uuid(cls):
         return uuid.uuid4().hex
 
+    """
+    Parses User-Agent
+    """
     @classmethod
     def parse_user_agent(cls, user_agent_str):
         translator = str.maketrans('', '', '{}\"')
@@ -49,6 +76,18 @@ class Utils(Enum):
 
         return result
 
+
+
+# Starting Point
+print()
+print("print args")
+print(Utils.print_args('Hi', 'Rohtash', 2024, True))
+print()
+
+print()
+print("print keyword args")
+print(Utils.print_kwargs(firstName='Rohtash', lastName='Lakra', age=21))
+print()
 
 
 print()
