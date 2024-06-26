@@ -1,5 +1,7 @@
+import enum
 import uuid
 from enum import Enum
+from enums import HttpMethod
 
 class Utils(Enum):
 
@@ -19,6 +21,35 @@ class Utils(Enum):
             for key, value in (token.split(':') for token in user_agent.split(',') if len(token.split(':')) == 2)
         }
 
+    """
+    Executes an HTTP Request
+    """
+    @staticmethod
+    def execute(url, method = None):
+        import urllib.request
+        import ssl
+        ssl.get_default_verify_paths()
+
+        # validate the url is provided
+        if len(url) == 0:
+            raise ValueError("The <url> must provide!")
+
+        # check the method provided
+        if method is None:
+            method = HttpMethod.GET
+
+        result = None
+        try:
+            req = urllib.request.Request(url, method)
+            with urllib.request.urlopen(req,context=ssl.create_default_context()) as response:
+                result = response.read()
+        except Exception as ex:
+            print(ex)
+            raise ex
+
+        return result
+
+
 
 print()
 print("Generating UUID:")
@@ -30,5 +61,11 @@ user_agent = '{platform: "iOS", osVersion: "1.0", deviceType: "mobile/tablet", d
 print(f"user_agent:{user_agent}")
 print("Parsed User-Agent:")
 print(Utils.parse_user_agent(user_agent))
+print()
+
+print()
+print("Execute HTTP Request")
+url = 'https://www.python.org/'
+# print(Utils.execute(url))
 print()
 
