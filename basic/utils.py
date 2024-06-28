@@ -10,21 +10,30 @@ class Utils(Enum):
 
     """
     Prints Arguments
+
+    @:param args - tuple of positional arguments
+
+    *args - collects additional positional arguments into a tuple, not a list. The arguments are accessible using tuple indexing and iteration.
     """
     @staticmethod
     def print_args(*args):
         for arg in args:
             print(arg)
+        # for count, arg in enumerate(args):
+            # print('{0}. {1}'.format(count, arg))
 
 
     """
     Prints Keyword Arguments
+    
+    @:param kwargs - dictionary of keyword arguments (keyword arguments (**kwargs) to a function)
     """
     @staticmethod
     def print_kwargs(**kwargs):
         # print(f"kwargs={kwargs}")
         for key, value in kwargs.items():
             print("%s = %s" % (key, value))
+            # print('{0} = {1}'.format(key, value))
 
     """
     Generates Unique UUID
