@@ -1,19 +1,25 @@
-"""Implements ThreadPoolExecutor."""
+"""
+Author: Rohtash Lakra
 
+Implements Utils.
+"""
 __author__ = 'Rohtash Lakra (work.lakra@gmail.com)'
 
 import uuid
-from enum import Enum
+from enum import Enum, auto
+from pathlib import Path
 from enums import HttpMethod
 import json
 from typing import Callable, TypeVar, List, Dict, Iterator
 
 # These type variables are used by the container types.
-_K = TypeVar('K') # Key type
-_V = TypeVar('V') # Value type
+_T = TypeVar('T')  # Key type
+_E = TypeVar('E')  # Value type
+_K = TypeVar('K')  # Key type
+_V = TypeVar('V')  # Value type
+
 
 class Utils(Enum):
-
     """
     Prints Arguments
 
@@ -132,6 +138,26 @@ class Utils(Enum):
         return results
 
 
+class IOUtils(Enum):
+
+    @classmethod
+    def read_json_file(cls, file_path):
+        filePath = Path(file_path);
+        if not filePath.exists():
+            raise Exception(f"'{file_path}' doesn't exist!")
+        elif filePath.is_dir():
+            raise Exception(f"'{file_path}' is not a file!")
+
+        contents = None
+        # read the file contents
+        with open(filePath, 'r') as file:
+            contents = file.read()
+
+        # print(f"{type(json.loads(contents))}")
+
+        return json.loads(contents) if contents else None
+
+
 # Starting Point
 print()
 print("print args")
@@ -161,47 +187,19 @@ url = 'https://www.python.org/'
 # print(Utils.execute(url))
 print()
 
-json_data = [
-    {
-        "name": "leopard",
-        "class": "mammal",
-        "order": "Carnivora",
-        "max_speed": "58.0"
-    },
-    {
-        "name": "monkey",
-        "class": "mammal",
-        "order": "Primates",
-        "max_speed": "NaN"
-    },
-    {
-        "name": "lion",
-        "class": "mammal",
-        "order": "Carnivora",
-        "max_speed": "80.2"
-    },
-    {
-        "name": "parrot",
-        "class": "bird",
-        "order": "Psittaciformes",
-        "max_speed": "24.0"
-    },
-    {
-        "name": "falcon",
-        "class": "bird",
-        "order": "Falconiformes",
-        "max_speed": "389.0"
-    }
-]
-
 print()
-print("Group by Class")
-group_by_class = {}
-for entry in json_data:
-    group_by_class.setdefault(entry['class'], []).append(entry)
+print(f"Reads File")
+json_data = IOUtils.read_json_file("data/animals.json")
+print(json_data)
 
-print(json.dumps(group_by_class))
-print()
+# print()
+# print("Group by Class")
+# group_by_class = {}
+# for entry in json_data:
+#     group_by_class.setdefault(entry['class'], []).append(entry)
+#
+# print(json.dumps(group_by_class))
+# print()
 
 print()
 print("Group by Class type")
