@@ -1,5 +1,6 @@
 #
 # Author: Rohtash Lakra
+# Reference: https://realpython.com/python-logging/
 #
 import logging
 
@@ -23,17 +24,50 @@ References:
 logFormat = f"%(asctime)s %(threadName)s [%(levelname)8s] (%(processName)s:%(name)s:%(filename)s:%(lineno)d) - %(message)s"
 logging.basicConfig(level=logging.DEBUG, filename="app.log", filemode="a", format=logFormat, datefmt="%m-%d-%Y %H:%M:%S.%z")
 
-# get logger for filename
+# logging.config.fileConfig(fname='logger.ini', disable_existing_loggers=False)
+
+# # get logger for filename
 logger = logging.getLogger(__name__)
 
-class LogHelp:
+class AppLogger:
+
+    _log_format = f"%(asctime)s %(threadName)s [%(levelname)8s] (%(processName)s:%(name)s:%(filename)s:%(lineno)d) - %(message)s"
 
     def __init__(self):
-        logger.debug("LogHelp()")
+        logging.basicConfig(level=logging.DEBUG, filename="app.log", filemode="a", format=self._log_format,
+                            datefmt="%m-%d-%Y %H:%M:%S.%z")
 
-    def show(self, message):
-        logger.debug(f"message={message}")
+        # logger.info("AppLogger()")
 
+
+    @classmethod
+    def add_handler(cls, logger: logging.Logger):
+        # Create log handlers
+        cls.console_handler = logging.StreamHandler()
+        cls.file_handler = logging.StreamHandler("app.log")
+
+        # add log level
+        cls.console_handler.setLevel(logging.DEBUG)
+        cls.file_handler.setLevel(logging.INFO)
+
+        # Add handlers to logger
+        logger.addHandler(cls.console_handler)
+        logger.addHandler(cls.file_handler)
+
+    @classmethod
+    def create_logger(cls, name):
+        # get logger for filename
+        logger = logging.getLogger(name)
+        AppLogger.add_handler(logger)
+
+        return logger
+
+
+    # def show(self, message):
+    #     logger.debug(f"message={message}")
+
+
+# logger = AppLogger.create_logger(__name__)
 
 def test_logs():
     logger.info("Start")
@@ -41,8 +75,8 @@ def test_logs():
     logger.warning("End")
 
 logger.info(f"\nStarting: ${__file__}")
-logHelp = LogHelp()
-logHelp.show("Hi, Roh")
+# logHelp = LogHelp()
+# logger.show("Hi, Roh")
 logger.debug("DEBUG Message")
 logger.info("INFO Message")
 logger.warning("WARNING Message")
