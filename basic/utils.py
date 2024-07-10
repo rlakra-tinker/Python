@@ -193,13 +193,16 @@ json_data = IOUtils.read_json_file("data/animals.json")
 print(json_data)
 
 # print()
-# print("Group by Class")
-# group_by_class = {}
-# for entry in json_data:
-#     group_by_class.setdefault(entry['class'], []).append(entry)
-#
-# print(json.dumps(group_by_class))
-# print()
+print("---------------<Group by Class>---------------")
+group_by_class = {}
+for entry in json_data:
+    print(entry)
+    print(entry.pop(['class']))
+    # group_by_class.setdefault(entry.pop(['class']), []).append(entry)
+
+print(json.dumps(group_by_class))
+print("---------------<Group by Class>---------------")
+print()
 
 print()
 print("Group by Class type")

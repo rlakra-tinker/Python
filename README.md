@@ -114,6 +114,27 @@ http://localhost:8081/ecommerce-iws
 ```
 
 
+## Capacity Planning
+
+### CPU Bound Systems
+
+- Formula
+```text
+RPS = TotalCore * (1/TaskDurationInSeconds)
+
+i.e.:
+4 * (1000/100) = 40
+
+```
+
+| Total Cores  | Task Duration | RPS |
+|:------------:|:--------------|:----|
+|      4       | 100ms         | 40  |
+|      4       | 50ms          | 80  |
+|      4       | 10ms          | 400 |
+
+
+
 # Author
 
 ---
