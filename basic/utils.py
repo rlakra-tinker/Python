@@ -5,12 +5,14 @@ Implements Utils.
 """
 __author__ = 'Rohtash Lakra (work.lakra@gmail.com)'
 
+import hashlib
 import uuid
 from enum import Enum, auto
 from pathlib import Path
 from enums import HttpMethod
 import json
 from typing import Callable, TypeVar, List, Dict, Iterator
+import hashlib
 
 # These type variables are used by the container types.
 _T = TypeVar('T')  # Key type
@@ -138,6 +140,42 @@ class Utils(Enum):
         return results
 
 
+    @staticmethod
+    def toStr(class_: _T) -> str:
+        strBuilder = class_.__name__ + " <"
+        claStr = ''
+        try:
+            claStr += "{}".format(
+                {
+                    key: value for key, value in class_.__dict__.items() if not str(hex(id(value))) in str(value)
+                }
+            )
+        except:
+            print(f"Error processing '{class_}' class!")
+
+        print(f"claStr: {claStr}")
+
+        attrs = [getattr(class_, p) for p in dir(class_) if not p.startswith('_')]
+        print(f"attrs: {attrs}")
+
+        # atts =  [(x, eval('type(x.%s).__name__' % x)) for x in dir(class_)]
+        # print(f"atts: {atts}")
+
+        # cls_attrs = dir(type(class_))
+        # attrs = {}
+        # for attr_name in cls_attrs:
+        #     if hasattr(class_, attr_name):
+        #         try:
+        #             attr_value = getattr(class_, attr_name)
+        #             print(f"\n{attr_name}: {attr_value}")
+        #             attrs[attr_name] = attr_value
+        #         except AttributeError:
+        #             print(f"Unable to retrieve '{attr_name}' of class: {class_}")
+
+        strBuilder += ">"
+        print(f"strBuilder: {strBuilder}")
+        return strBuilder
+
 class IOUtils(Enum):
 
     @classmethod
@@ -193,15 +231,15 @@ json_data = IOUtils.read_json_file("data/animals.json")
 print(json_data)
 
 # print()
-print("---------------<Group by Class>---------------")
-group_by_class = {}
-for entry in json_data:
-    print(entry)
-    print(entry.pop(['class']))
-    # group_by_class.setdefault(entry.pop(['class']), []).append(entry)
-
-print(json.dumps(group_by_class))
-print("---------------<Group by Class>---------------")
+# print("---------------<Group by Class>---------------")
+# group_by_class = {}
+# for entry in json_data:
+#     print(entry)
+#     print(entry.pop(['class']))
+#     # group_by_class.setdefault(entry.pop(['class']), []).append(entry)
+#
+# print(json.dumps(group_by_class))
+# print("---------------<Group by Class>---------------")
 print()
 
 print()
@@ -209,4 +247,81 @@ print("Group by Class type")
 group_by_class = {}
 group_by_class = Utils.group_by(json_data, key=lambda k: k['class'])
 print(json.dumps(group_by_class))
+print()
+
+class Pair:
+
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+
+    # def update(self, pair_dic):
+    #     for key, value in pair_dic.items():
+    #         setattr(self, key, value)
+
+    # def __str__(self):
+    #     return f"Pair <key={self.key}, value={self.value}>"
+    #
+    # def __repr__(self):
+    #     return self.__str__()
+
+
+print()
+print("Pair class as string")
+pair_str = Utils.toStr(Pair)
+print(pair_str)
+print()
+
+class SecurityUtils(Enum):
+
+    @staticmethod
+    def sha256_hash(text: str):
+        sha256_hash = hashlib.sha256(text.encode())
+        base64_hash = sha256_hash.digest().hex()
+        return base64_hash
+
+    @staticmethod
+    def sha256_hash_with_salt(hashed_text:str, salt:str):
+        salt_bytes = bytes(salt, 'utf-8')
+        salt_sha256_hash = hashlib.sha256(salt_bytes)
+        salt_digest = salt_sha256_hash.digest()
+
+        salt_base64 = salt_bytes.hex()
+        hash_base64 = hashed_text + salt_digest.hex()
+
+        return salt_base64, hash_base64
+
+    @staticmethod
+    def sha256_hash_with_random_salt(hashed_text:str):
+        return SecurityUtils.sha256_hash_with_salt(hashed_text, Utils.generate_uuid())
+
+    @staticmethod
+    def verify_hash(text, salt, hash):
+        salt_bytes = bytes.fromhex(salt)
+        hash_bytes = bytes.fromhex(hash)
+
+        salt_digest = hashlib.sha256(salt_bytes).digest()
+        text_digest = hashlib.sha256(text.encode()).digest()
+
+        return (text_digest + salt_digest) == hash_bytes
+
+
+print()
+print("SecurityUtils")
+print("sha256_hash")
+plain_text = 'Rohtash'
+base64_hash = SecurityUtils.sha256_hash(plain_text)
+print(f"plain_text:{plain_text}, base64_hash:{base64_hash}")
+base64_hash_expected = '5c9c41e81eaa1174a8b33c78cf192d1c3a7762438e40f89275b96852a1dea3e9'
+assert base64_hash_expected == base64_hash
+print()
+print("sha256_hash")
+plain_text = 'Rohtash'
+default_salt = Utils.generate_uuid()
+sha256_hash = SecurityUtils.sha256_hash(plain_text)
+print(f"plain_text:{plain_text}, default_salt:{default_salt}, sha256_hash:{sha256_hash}")
+salt, hashed_text = SecurityUtils.sha256_hash_with_salt(sha256_hash, default_salt)
+print(f"salt:{salt}, hashed_text:{hashed_text}")
+is_verified = SecurityUtils.verify_hash(plain_text, salt, hashed_text)
+print(f"is_verified:{is_verified}")
 print()
