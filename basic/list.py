@@ -1,4 +1,6 @@
 # mutable collection
+import json
+
 scientist_json = [
     {
         "name": "Rohtash",
@@ -249,3 +251,35 @@ print("----------------> foods < --------------")
 print(foods)
 print()
 
+print()
+print("----------------> action_json < --------------")
+action = """
+    {
+        "type": "connect",
+        "data": {
+            "id": "3f726b39489c4c73847475c247f74c11",
+            "last_call_time": "2024-07-18 19:54:14"
+        }
+    }
+"""
+
+
+action_json = json.loads(action)
+print(action_json)
+print(f"type: {action_json.get('type')}")
+print(f"data -> id: {action_json.get('data').get('id')}")
+id = action_json.get('data').get('id')
+ids = [action_json.get('data').get('id')]
+print(f"ids: {ids}")
+# iterable may be either a sequence, a container that supports iteration, or an iterator object.
+# If iterable is already a list, a copy is made and returned
+id_list = list(id)
+print(f"id_list: {id_list}")
+print(f"list(ids): {list(ids)}")
+# print(f"list().append: {list().append(id)}")
+list_ids = list()
+list_ids.append(id)
+print(f"list_ids: {list_ids}")
+ids_list = list([id])
+print(f"ids_list: {ids_list}")
+print()
