@@ -3,26 +3,83 @@
 # Reference - https://docs.python.org/3/howto/enum.html
 #
 from enum import Enum, auto, unique
+from typing import Any
+from datetime import date
+
+
+# @unique
+class BaseEnum(Enum):
+    """Base Enum for all other Enums. For readability, add constants in Alphabetical order."""
+
+    def __str__(self):
+        return f"{self.__class__.__name__} <{self.name}{'=' + str(self.value) if self.value else ''}>"
+
+    def __repr__(self):
+        return self.__str__()
+
+    @classmethod
+    def names(cls):
+        "Returns the list of enum name"
+        names = []
+        for member in cls:
+            if member and member.name:
+                names.append(member.name)
+
+        return tuple(names)
+
+    @classmethod
+    def of_name(cls, name: str) -> Enum:
+        "Returns the Service Request Type object based on request_type param"
+        if name is not None:
+            for member in cls:
+                if member.name.lower() == name.lower():
+                    return member
+
+        return None
+
+    @classmethod
+    def values(cls):
+        "Returns the list of enum values"
+        values = []
+        for member in cls:
+            if member and member.value:
+                values.append(member.value)
+
+        return tuple(values)
+
+    @classmethod
+    def of_value(cls, value: Any) -> Enum:
+        "Returns the Service Request Type object based on request_type param"
+        if value is not None:
+            for member in cls:
+                if member.value == value:
+                    return member
+
+        return None
+
+    @classmethod
+    def equals(cls, enum_type: Enum, text: Any) -> bool:
+        "Returns true if the text is either equals to name or value of an enum otherwise false"
+        if enum_type is None:
+            raise ValueError('enum_type should provide!')
+        if text is None:
+            raise ValueError('text should provide!')
+
+        return enum_type == cls.of_name(str(text)) or enum_type == cls.of_value(text)
+
 
 # Define Colors Enum
-class Color(Enum):
+class ColorEnum(BaseEnum):
+    """Color Enum represents the various colors. For readability, add constants in Alphabetical order."""
     RED = 1
     GREEN = 2
     BLUE = 3
     RGB = 3
 
-# Print Color Enum
-print()
-print(Color)
-print(Color.RGB)
-print(type(Color.RGB))
-colors = list(Color)
-print(colors)
-print()
-
 
 # Define Weekday Enum
-class WeekDay(Enum):
+class WeekDaysEnum(BaseEnum):
+    """WeekDay Enum represents the days of the week. For readability, add constants in Alphabetical order."""
     SUNDAY = 1
     MONDAY = 2
     TUESDAY = 3
@@ -41,31 +98,7 @@ class WeekDay(Enum):
     # add a method to return the today's weekday.
     @classmethod
     def today(cls):
-        return WeekDay.fromDate(date.today())
-
-
-# Print WeekDay Enum
-print()
-print(WeekDay)
-print(WeekDay.WEEKEND)
-print(type(WeekDay.WEEKEND))
-weekDays = list(WeekDay)
-print(weekDays)
-print()
-
-# Check is_instance
-color = Color.RGB
-print(f"{color} color is instance of {Color} = {isinstance(color, Color)}")
-print(f"Color <name={color.name}, value={color.value}>")
-weekDay = WeekDay.WEDNESDAY
-print(f"The {color} is instance of {WeekDay} = {isinstance(color, WeekDay)}")
-print(f"Color <name={weekDay.name}, value={weekDay.value}>")
-print()
-
-# print weekday from date
-from datetime import date
-print(f"Weekday={WeekDay.fromDate(date.today())} for date:{date}. And today={WeekDay.today()}")
-print()
+        return cls.fromDate(date.today())
 
 
 # In cases where the actual values of the members do not matter,

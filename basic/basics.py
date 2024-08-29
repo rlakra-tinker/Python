@@ -137,3 +137,11 @@ print("\n")
 for index in range(1, 10, 2):
     print(index)
 print()
+
+input = 16
+print(f"input={input}")
+if input % 2 == 0:
+    result = True
+else:
+    result = False
+print(f"result={result}")

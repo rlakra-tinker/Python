@@ -7,9 +7,9 @@ __author__ = 'Rohtash Lakra (work.lakra@gmail.com)'
 
 import hashlib
 import uuid
-from enum import Enum, auto
+from enum import Enum
 from pathlib import Path
-from enums import HttpMethod
+from basic.enums import HttpMethod
 import json
 from typing import Callable, TypeVar, List, Dict, Iterator
 import hashlib
@@ -176,6 +176,7 @@ class Utils(Enum):
         print(f"strBuilder: {strBuilder}")
         return strBuilder
 
+
 class IOUtils(Enum):
 
     @classmethod
@@ -195,23 +196,6 @@ class IOUtils(Enum):
 
         return json.loads(contents) if contents else None
 
-
-# Starting Point
-print()
-print("print args")
-print(Utils.print_args('Hi', 'Rohtash', 2024, True))
-print()
-
-print()
-print("print keyword args")
-print(Utils.print_kwargs(firstName='Rohtash', lastName='Lakra', age=21))
-print()
-
-print()
-print("Generating UUID:")
-print(Utils.generate_uuid())
-print()
-print(list(Utils))
 
 user_agent = '{platform: "iOS", osVersion: "1.0", deviceType: "mobile/tablet", deviceId: "1234-5678-9014", appVersion: "1.0.0"}'
 print(f"user_agent:{user_agent}")
@@ -325,3 +309,19 @@ print(f"salt:{salt}, hashed_text:{hashed_text}")
 is_verified = SecurityUtils.verify_hash(plain_text, salt, hashed_text)
 print(f"is_verified:{is_verified}")
 print()
+
+
+class JsonUtils(Enum):
+
+    def ensure_valid_dictionary(json_text):
+        """Ensure action_data is a dictionary"""
+        print(f'json_text={json_text}')
+        json_data = {}
+        if isinstance(json_text, str):
+            try:
+                json_data = json.loads(json_text)
+            except json.JSONDecodeError:
+                print('Invalid json_text={}'.format(json_text))
+                json_data = {}
+
+        return json_data

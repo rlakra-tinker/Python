@@ -283,3 +283,24 @@ print(f"list_ids: {list_ids}")
 ids_list = list([id])
 print(f"ids_list: {ids_list}")
 print()
+
+# range, list and set
+ids = list(range(1, 21))
+print(f"ids={ids}")
+exclude = list(range(1, 10, 3))
+print(f"exclude={exclude}")
+invalid = [11, 15, 21, 23]
+print(f"invalid={invalid}")
+unique_ids = list(set(ids) - set(exclude + invalid))
+print(f"unique_ids={unique_ids}")
+difference = list(set(ids).difference(set(exclude + invalid)))
+print(f"difference={difference}")
+brackets_list = range(5)
+print(f"brackets_list={brackets_list}")
+
+invalid_ids = []
+if invalid_ids:
+    print(f"invalid_ids={invalid_ids}")
+else:
+    print("No IDs found!")
+
