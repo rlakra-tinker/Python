@@ -2,14 +2,17 @@
 # Author: Rohtash Lakra
 # Reference - https://docs.python.org/3/howto/enum.html
 #
-from enum import Enum, auto, unique
-from typing import Any
 from datetime import date
+from enum import Enum, auto, unique, IntEnum, IntFlag
+from typing import Any
 
 
 # @unique
 class BaseEnum(Enum):
-    """Base Enum for all other Enums. For readability, add constants in Alphabetical order."""
+    """
+    Base Enum for all other Enums. For readability, add constants in Alphabetical order.
+    Also, subclassing an enumeration is allowed only if the enumeration does not define any members.
+    """
 
     def __str__(self):
         return f"{self.__class__.__name__} <{self.name}{'=' + str(self.value) if self.value else ''}>"
@@ -92,90 +95,60 @@ class WeekDaysEnum(BaseEnum):
     # add a method to return the weekday from the date
     # @param date
     @classmethod
-    def fromDate(cls, date):
+    def from_date(cls, date):
         return cls(date.isoweekday())
 
     # add a method to return the today's weekday.
     @classmethod
     def today(cls):
-        return cls.fromDate(date.today())
+        return cls.from_date(date.today())
 
 
 # In cases where the actual values of the members do not matter,
 # you can save yourself some work and use auto() for the values:
-class Number(Enum):
+class NumberEnum(BaseEnum):
+    """Number types Enum. For readability, add constants in Alphabetical order."""
     EVEN = auto()
     ODD = auto()
     PRIME = auto()
 
-print()
-num = Number.EVEN
-print(num)
-numbers = list(Number)
-print(numbers)
-print()
 
-# Duplicating enum members and values
-class Shape(Enum):
+class ShapeEnum(BaseEnum):
+    """Shape Enum defines various shapes. For readability, add constants in Alphabetical order."""
     CIRCLE = 1
     DIAMOND = 2
     SQUARE = 3
     DIAMOND_ALIAS = 2
 
     @classmethod
-    def allShapes(cls):
+    def all_shapes(cls):
+        """
+        Note that the aliases Shape.DIAMOND_ALIAS and WeekDay.WEEKEND aren’t shown.
+        The special 'attribute __members__' is a read-only ordered mapping of names to members.
+        It includes all names defined in the enumeration, including the aliases:
+        all_shapes = list([name, entry for name, entry in Shape.__members__().items()])
+
+        # The special attribute __members__ is a read-only ordered mapping of names to members.
+
+        :return:
+        """
         # return cls(list(Shape.__members__.items()))
         # returns (name, Enum) as list
-        return list(Shape.__members__.items())
+        return list(cls.__members__.items())
 
-
-print()
-# shapes = [f"{entry.name} = {entry.value}" for entry in Shape]
-shapes = []
-for entry in Shape:
-    shapes.append(f"{entry.name} = {entry.value}")
-# shapes = list([f"{entry.name} = {entry.value}" for entry in Shape])
-print(shapes)
-shape = Shape.DIAMOND
-print(shape)
-shape = Shape.DIAMOND_ALIAS
-print(shape)
-# Iterating over the members of an enum does not provide the aliases:
-shapes = list(Shape)
-print(shapes)
-print()
-
-# Note that the aliases Shape.DIAMOND_ALIAS and WeekDay.WEEKEND aren’t shown.
-# The special 'attribute __members__' is a read-only ordered mapping of names to members.
-# It includes all names defined in the enumeration, including the aliases:
-# allShapes = list([name, entry for name, entry in Shape.__members__().items()])
-print("Print all members including aliases:")
-for name, shape in Shape.__members__.items():
-    print(f"{name}, {shape}")
-
-print()
-# The special attribute __members__ is a read-only ordered mapping of names to members.
-# It includes all names defined in the enumeration, including the aliases:
-print("Print all Enums:")
-print(Shape.allShapes())
-print()
 
 # Ensuring unique enumeration values
 @unique
-class UniqueShape(Enum):
+class UniqueShapeEnum(BaseEnum):
+    """Unique Shape Enum defines various shapes. For readability, add constants in Alphabetical order."""
     CIRCLE = 1
     DIAMOND = 2
     SQUARE = 3
 
-shapeUnique = UniqueShape.DIAMOND
-print(shapeUnique)
-uniqueShapes = list(UniqueShape)
-print(uniqueShapes)
-print()
-
 
 # Using automatic values
-class Status(Enum):
+class StatusEnum(BaseEnum):
+    """Status Enum defines various statuses. For readability, add constants in Alphabetical order."""
 
     # The values are chosen by _generate_next_value_() static, which can be overridden:
     # Note The _generate_next_value_() method must be defined before any members.
@@ -190,9 +163,10 @@ class Status(Enum):
 
     """
     _missing_(cls, value)
-    A classmethod for looking up values not found in cls. 
+    A 'classmethod' for looking up values not found in cls. 
     By default it does nothing, but can be overridden to implement custom search behavior:
     """
+
     @classmethod
     def _missing_(cls, value):
         value = value.lower()
@@ -203,92 +177,64 @@ class Status(Enum):
         return None
 
 
-print()
-statuses = list(Status)
-print(f"statuses={statuses}")
-print()
+class AutoNameEnum(BaseEnum):
+    """
+    AutoName automatically names enum members. For readability, add constants in Alphabetical order.
+    Also, subclassing an enumeration is allowed only if the enumeration does not define any members.
+    """
 
-# # Print Status
-# for entry in Status:
-#     print(f"{entry.name} = {entry.value}")
-
-
-# Also, subclassing an enumeration is allowed only if the enumeration does not define any members.
-# Auto name for the enum members
-class AutoName(Enum):
     @staticmethod
     def _generate_next_value_(name, start, count, last_values):
         return name
 
+
 # Auto lowercase name
-class AutoNameLowerCase(Enum):
+class AutoNameLowerCaseEnum(BaseEnum):
+    """
+    AutoNameLowerCaseEnum automatically lowercase names of enum members. For readability, add constants in Alphabetical order.
+    Also, subclassing an enumeration is allowed only if the enumeration does not define any members.
+    """
+
     @staticmethod
     def _generate_next_value_(name, start, count, last_values):
         return name.lower()
 
+
 # Ordinal Enum
-class Ordinal(AutoName):
+class OrdinalEnum(AutoNameEnum):
+    """OrdinalEnum defines all 4 ordinals. For readability, add constants in Alphabetical order."""
+
     EAST = auto()
     NORTH = auto()
     SOUTH = auto()
-    WEST =  auto()
+    WEST = auto()
 
-print()
-ordinals = list(Ordinal)
-print(f"ordinals={ordinals}")
-print()
 
 # LowerCase Ordinal Enum
-class LowerCaseOrdinal(AutoNameLowerCase):
+class LowerCaseOrdinalEnum(AutoNameLowerCaseEnum):
+    """LowerCaseOrdinalEnum defines all 4 ordinals in lowercase. For readability, add constants in Alphabetical order."""
+
     EAST = auto()
     NORTH = auto()
     SOUTH = auto()
-    WEST =  auto()
+    WEST = auto()
 
-print()
-lowerCaseOrdinals = list(LowerCaseOrdinal)
-print(f"lowerCaseOrdinals={lowerCaseOrdinals}")
-print()
 
-# Enumeration members are compared by identity:
-print()
-status = Status.ENABLED
-print(f"status={status} is enabled:{status is Status.ENABLED}")
-print(f"status={status} is disabled:{status is Status.DISABLED}")
-print(f"status={status} is enabled:{status == 'Status.ENABLED'}")
-print(f"status={status} is enabled:{status.value == 'Status.ENABLED'}")
-print(f"Length of {Status} is {len(Status)}")
-print(f"Reversed {Status} are: {list(reversed(Status))}")
-print()
-camelCaseEnabled = 'eNableD'
-print(f"{camelCaseEnabled} equals to {Status(camelCaseEnabled)}")
-print()
+class EvenOddEnum(BaseEnum, IntFlag):
+    """EvenOddEnum defines even and odd enums. For readability, add constants in Alphabetical order."""
 
-from enum import IntEnum, IntFlag
-
-class EvenOdd(IntFlag):
     EVEN = auto()
     ODD = auto()
 
-print()
-print("EvenOdd")
-evenAndOdds = list(EvenOdd)
-print(f"evenAndOdds={evenAndOdds}")
-print()
 
-class LogType(IntEnum):
+class LogTypeEnum(BaseEnum, IntEnum):
+    """LogTypeEnum defines various log levels. For readability, add constants in Alphabetical order."""
     ALL = auto()
     DEBUG = auto()
     INFO = auto()
     WARN = auto()
     ERROR = auto()
 
-print()
-print("LogType")
-logTypes = list(LogType)
-print(f"logTypes={logTypes}")
-# assert LogType.INFO == "INFO"
-print()
 
 import sys
 
@@ -298,8 +244,12 @@ print()
 # String Enum
 if sys.version_info >= (3, 11):
     from enum import StrEnum
+
+
     # from strenum import StrEnum
-    class HttpMethod(StrEnum):
+    class HttpMethodEnum(StrEnum):
+        """HttpMethod enums defines supported http methods. For readability, add constants in Alphabetical order."""
+
         GET = auto()
         HEAD = auto()
         POST = auto()
@@ -311,7 +261,8 @@ if sys.version_info >= (3, 11):
         PATCH = auto()
 else:
     @unique
-    class HttpMethod(AutoName):
+    class HttpMethodEnum(AutoNameEnum):
+        """HttpMethod enums defines supported http methods. For readability, add constants in Alphabetical order."""
         CONNECT = auto()
         HEAD = auto()
         GET = auto()
@@ -324,9 +275,10 @@ else:
 
         """
         _missing_(cls, value)
-        A classmethod for looking up values not found in cls. 
+        A 'classmethod' for looking up values not found in cls. 
         By default it does nothing, but can be overridden to implement custom search behavior:
         """
+
         @classmethod
         def _missing_(cls, value):
             value = value.upper()
@@ -335,12 +287,3 @@ else:
                     return member
 
             return None
-
-print()
-print("HttpMethod")
-httpMethods = list(HttpMethod)
-print(httpMethods)
-print()
-httpMethod = 'Get'
-print(f"{httpMethod} equals to {HttpMethod(httpMethod)}")
-print()

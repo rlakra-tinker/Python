@@ -2,7 +2,6 @@
 # Author: Rohtash Lakra
 #
 import json
-from collections import namedtuple
 
 food_json = {
     "id": "0001",
@@ -37,8 +36,44 @@ if food_dict:
 if not food_dict:
     print("food_dict is emtpy")
 
+data = [{"name": "tobi", "class": "1", "age": "14", "gender": "m"},
+        {"name": "joke", "class": "1", "age": "18", "gender": "f"},
+        {"name": "mary", "class": "2", "age": "14", "gender": "f"},
+        {"name": "kano", "class": "2", "age": "15", "gender": "m"},
+        {"name": "ada", "class": "1", "age": "15", "gender": "f"},
+        {"name": "bola", "class": "2", "age": "10", "gender": "f"},
+        {"name": "fake", "class": "1", "age": "15", "gender": "m"}]
+
+print()
 
 
+def process_request(request_json):
+    if len(request_json) == 0:
+        return None
+
+    if not request_json.get('metadata'):
+        request_json['metadata'] = {}
+
+    metadata = request_json.get('metadata')
+    if not metadata.get('message'):
+        metadata['message'] = {
+            "event": "canceled",
+            "action": "end_call",
+            "audience": "expert"
+        }
+
+    # add event in the metadata
+    request_json['metadata'] = json.dumps(metadata)
+
+    return request_json
 
 
-data = [{"name":"tobi","class":"1","age":"14", "gender":"m"},{"name":"joke","class":"1","age":"18", "gender":"f"}, {"name":"mary","class":"2","age":"14", "gender":"f"},{"name":"kano","class":"2","age":"15", "gender":"m"},{"name":"ada","class":"1","age":"15", "gender":"f"},{"name":"bola","class":"2","age":"10", "gender":"f"},{"name":"nnamdi","class":"1","age":"15", "gender":"m"}]
+print()
+print(json.dumps(process_request({"status": "canceled"})))
+print()
+request_json = {
+    "status": "canceled",
+    "metadata": {"make": "Honda", "year": "2024", "model": "Civic"}
+}
+print(json.dumps(process_request(request_json)))
+print()

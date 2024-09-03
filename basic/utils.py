@@ -6,13 +6,13 @@ Implements Utils.
 __author__ = 'Rohtash Lakra (work.lakra@gmail.com)'
 
 import hashlib
+import json
 import uuid
 from enum import Enum
 from pathlib import Path
-from basic.enums import HttpMethod
-import json
 from typing import Callable, TypeVar, List, Dict, Iterator
-import hashlib
+
+from basic.enums import HttpMethodEnum
 
 # These type variables are used by the container types.
 _T = TypeVar('T')  # Key type
@@ -90,7 +90,7 @@ class Utils(Enum):
 
         # check the method provided
         if method is None:
-            method = HttpMethod.GET
+            method = HttpMethodEnum.GET
 
         result = None
         try:
@@ -138,7 +138,6 @@ class Utils(Enum):
             results.setdefault(group_key, list()).append(item)
 
         return results
-
 
     @staticmethod
     def toStr(class_: _T) -> str:
@@ -233,6 +232,7 @@ group_by_class = Utils.group_by(json_data, key=lambda k: k['class'])
 print(json.dumps(group_by_class))
 print()
 
+
 class Pair:
 
     def __init__(self, key, value):
@@ -256,6 +256,7 @@ pair_str = Utils.toStr(Pair)
 print(pair_str)
 print()
 
+
 class SecurityUtils(Enum):
 
     @staticmethod
@@ -265,7 +266,7 @@ class SecurityUtils(Enum):
         return base64_hash
 
     @staticmethod
-    def sha256_hash_with_salt(hashed_text:str, salt:str):
+    def sha256_hash_with_salt(hashed_text: str, salt: str):
         salt_bytes = bytes(salt, 'utf-8')
         salt_sha256_hash = hashlib.sha256(salt_bytes)
         salt_digest = salt_sha256_hash.digest()
@@ -276,7 +277,7 @@ class SecurityUtils(Enum):
         return salt_base64, hash_base64
 
     @staticmethod
-    def sha256_hash_with_random_salt(hashed_text:str):
+    def sha256_hash_with_random_salt(hashed_text: str):
         return SecurityUtils.sha256_hash_with_salt(hashed_text, Utils.generate_uuid())
 
     @staticmethod
