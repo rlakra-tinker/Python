@@ -71,6 +71,29 @@ class BaseEnum(Enum):
         return enum_type == cls.of_name(str(text)) or enum_type == cls.of_value(text)
 
 
+class AutoNameEnum(BaseEnum):
+    """
+    AutoName automatically names enum members. For readability, add constants in Alphabetical order.
+    Also, subclassing an enumeration is allowed only if the enumeration does not define any members.
+    """
+
+    @staticmethod
+    def _generate_next_value_(name, start, count, last_values):
+        return name
+
+
+# Auto lowercase name
+class AutoNameLowerCaseEnum(BaseEnum):
+    """
+    AutoNameLowerCaseEnum automatically lowercase names of enum members. For readability, add constants in Alphabetical order.
+    Also, subclassing an enumeration is allowed only if the enumeration does not define any members.
+    """
+
+    @staticmethod
+    def _generate_next_value_(name, start, count, last_values):
+        return name.lower()
+
+
 # Define Colors Enum
 class ColorEnum(BaseEnum):
     """Color Enum represents the various colors. For readability, add constants in Alphabetical order."""
@@ -175,29 +198,6 @@ class StatusEnum(BaseEnum):
                 return member
 
         return None
-
-
-class AutoNameEnum(BaseEnum):
-    """
-    AutoName automatically names enum members. For readability, add constants in Alphabetical order.
-    Also, subclassing an enumeration is allowed only if the enumeration does not define any members.
-    """
-
-    @staticmethod
-    def _generate_next_value_(name, start, count, last_values):
-        return name
-
-
-# Auto lowercase name
-class AutoNameLowerCaseEnum(BaseEnum):
-    """
-    AutoNameLowerCaseEnum automatically lowercase names of enum members. For readability, add constants in Alphabetical order.
-    Also, subclassing an enumeration is allowed only if the enumeration does not define any members.
-    """
-
-    @staticmethod
-    def _generate_next_value_(name, start, count, last_values):
-        return name.lower()
 
 
 # Ordinal Enum

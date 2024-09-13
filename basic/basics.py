@@ -145,3 +145,18 @@ if input % 2 == 0:
 else:
     result = False
 print(f"result={result}")
+
+value = None
+if not value:
+    print(f'value={value}')
+else:
+    print('None')
+print()
+
+if value is None:
+    print('value is None')
+else:
+    print(f'value={value}')
+print()
+
+
