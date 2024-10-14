@@ -304,3 +304,9 @@ if invalid_ids:
 else:
     print("No IDs found!")
 
+print()
+if not invalid_ids:
+    print("invalid_ids is empty")
+else:
+    print(f"invalid_ids={invalid_ids}")
+print()

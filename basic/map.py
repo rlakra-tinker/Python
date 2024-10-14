@@ -77,3 +77,19 @@ request_json = {
 }
 print(json.dumps(process_request(request_json)))
 print()
+
+
+body = {
+    "idProperty": "email",
+    "inputs": [
+        {
+            "id": "email@email.com"
+        }
+    ]
+}
+
+print()
+print(f"body={json.dumps(body)}")
+print(f"body['inputs'][0] = {body['inputs'][0]}")
+print(f"id = {body['inputs'][0].get('id')}")
+print()
