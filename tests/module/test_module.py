@@ -2,11 +2,11 @@
 # Author: Rohtash Lakra
 #
 import unittest
-from module.fact import fact
+from module.module import fact
 
 
-class FactTest(unittest.TestCase):
-    """Unit-tests for fact.py"""
+class ModuleTest(unittest.TestCase):
+    """Unit-tests for module.py"""
 
     def test_fact_module(self):
         print("test_fact_module")

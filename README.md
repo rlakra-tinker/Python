@@ -135,6 +135,12 @@ i.e.:
 
 
 
+# Reference
+
+- [Star Wars API](https://swapi.dev/)
+- [developer testing tool](https://httpbin.org/)
+- [Inspect webhooks and HTTP requests](https://pipedream.com/requestbin)
+
 # Author
 
 ---
