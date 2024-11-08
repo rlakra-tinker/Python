@@ -239,7 +239,7 @@ class LogTypeEnum(BaseEnum, IntEnum):
 import sys
 
 print()
-print("Sys Version: {sys.version_info}")
+print(f"Sys Version: {sys.version_info}")
 print()
 # String Enum
 if sys.version_info >= (3, 11):

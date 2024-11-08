@@ -7,14 +7,21 @@ import pytz
 
 
 class TimeUtils:
-    __DATE_FORMAT = '%Y-%m-%d %H:%M:%S %Z'
-    __PST_TIMEZONE = 'US/Pacific'
+
+    DATE_FORMAT = '%Y-%m-%d %H:%M:%S %Z'
+    TIMEZONE_FORMAT = '%Y-%m-%d %H:%M:%S %Z (%z)'
+    PST_TIMEZONE = 'US/Pacific'
+    PST_LOS_ANGLES_TIMEZONE = 'America/Los_Angeles'
+
+    def convert_timezone(self, utc_time, timezone_str:str):
+        """Converts a UTC datetime to PST datetime."""
+        pst_timezone = pytz.timezone(timezone_str)
+        pst_time = utc_time.astimezone(pst_timezone)
+        return pst_time.strftime(self.TIMEZONE_FORMAT)
 
     def utc_to_pst(self, utc_time):
         """Converts a UTC datetime to PST datetime."""
-        pst_timezone = pytz.timezone(self.__PST_TIMEZONE)
-        pst_time = utc_time.astimezone(pst_timezone)
-        return pst_time
+        return self.convert_timezone(utc_time, self.PST_TIMEZONE)
 
     def now_utc(self):
         """Returns the current datetime in UTC timezone"""
@@ -31,6 +38,11 @@ class TimeUtils:
 
     def to_str(self, date: datetime, date_format: str) -> str:
         return date.strftime(date_format)
+
+
+def utc_to_pst(date_time_str):
+    time_utils = TimeUtils()
+    return time_utils.convert_timezone(time_utils.utc_datetime(date_time_str), TimeUtils.PST_LOS_ANGLES_TIMEZONE)
 
 
 print()
@@ -54,4 +66,10 @@ print('Current date & time is:', time_utils.to_str(date, date_format))
 date = date.astimezone(timezone('US/Pacific'))
 # print('Local date & time is:', date.strftime(date_format))
 print('Local date & time is:', time_utils.to_str(date, date_format))
+print()
+
+
+print()
+utc_time = '2024-11-08 13:50:33'
+print(f"utc_time={utc_time}, utc_to_pst={utc_to_pst('2024-11-08 13:50:33')}")
 print()

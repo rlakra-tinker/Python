@@ -140,6 +140,8 @@ i.e.:
 - [Star Wars API](https://swapi.dev/)
 - [developer testing tool](https://httpbin.org/)
 - [Inspect webhooks and HTTP requests](https://pipedream.com/requestbin)
+- [Gunicorn Architecture](https://docs.gunicorn.org/en/latest/design.html)
+- [How many concurrent requests does a single Flask process receive?](https://stackoverflow.com/questions/10938360/how-many-concurrent-requests-does-a-single-flask-process-receive?rq=4)
 
 # Author
 
