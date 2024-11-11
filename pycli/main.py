@@ -3,7 +3,7 @@
 #
 import sys
 
-from basic.time import utc_to_pst
+from basic.time import convert_utc_to_pst
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
             case '-utp':
                 print()
                 utc_time = args[1]
-                print(f"utc_time={utc_time}, utc_to_pst={utc_to_pst(utc_time)}")
+                print(f"utc_time={utc_time}, utc_to_pst={convert_utc_to_pst(utc_time)}")
                 print()
             case _:
                 print()
