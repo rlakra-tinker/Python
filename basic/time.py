@@ -45,31 +45,31 @@ def utc_to_pst(date_time_str):
     return time_utils.convert_timezone(time_utils.utc_datetime(date_time_str), TimeUtils.PST_LOS_ANGLES_TIMEZONE)
 
 
-print()
-time_utils = TimeUtils()
-# Print the result
-utc_now = time_utils.now_utc()
-pst_now = time_utils.utc_to_pst(utc_now)
-print("UTC time:", utc_now)
-print("PST time:", pst_now)
-print()
-
-# 2024-10-02 20:28:32
-print('iso_date:', time_utils.iso_datetime('2024-10-02 20:28:32'))
-print('utc_datetime:', time_utils.utc_datetime('2024-10-02 12:21:00'))
-print()
-
-date_format = '%Y-%m-%d %H:%M:%S %Z'
-date = datetime.now(tz=pytz.utc)
-# print('Current date & time is:', date.strftime(date_format))
-print('Current date & time is:', time_utils.to_str(date, date_format))
-date = date.astimezone(timezone('US/Pacific'))
-# print('Local date & time is:', date.strftime(date_format))
-print('Local date & time is:', time_utils.to_str(date, date_format))
-print()
-
-
-print()
-utc_time = '2024-11-08 13:50:33'
-print(f"utc_time={utc_time}, utc_to_pst={utc_to_pst('2024-11-08 13:50:33')}")
-print()
+# print()
+# time_utils = TimeUtils()
+# # Print the result
+# utc_now = time_utils.now_utc()
+# pst_now = time_utils.utc_to_pst(utc_now)
+# print("UTC time:", utc_now)
+# print("PST time:", pst_now)
+# print()
+#
+# # 2024-10-02 20:28:32
+# print('iso_date:', time_utils.iso_datetime('2024-10-02 20:28:32'))
+# print('utc_datetime:', time_utils.utc_datetime('2024-10-02 12:21:00'))
+# print()
+#
+# date_format = '%Y-%m-%d %H:%M:%S %Z'
+# date = datetime.now(tz=pytz.utc)
+# # print('Current date & time is:', date.strftime(date_format))
+# print('Current date & time is:', time_utils.to_str(date, date_format))
+# date = date.astimezone(timezone('US/Pacific'))
+# # print('Local date & time is:', date.strftime(date_format))
+# print('Local date & time is:', time_utils.to_str(date, date_format))
+# print()
+#
+#
+# print()
+# utc_time = '2024-11-08 13:50:33'
+# print(f"utc_time={utc_time}, utc_to_pst={utc_to_pst('2024-11-08 13:50:33')}")
+# print()

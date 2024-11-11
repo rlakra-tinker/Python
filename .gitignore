@@ -67,3 +67,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Install
+*.egg-info/
