@@ -142,6 +142,8 @@ i.e.:
 - [Inspect webhooks and HTTP requests](https://pipedream.com/requestbin)
 - [Gunicorn Architecture](https://docs.gunicorn.org/en/latest/design.html)
 - [How many concurrent requests does a single Flask process receive?](https://stackoverflow.com/questions/10938360/how-many-concurrent-requests-does-a-single-flask-process-receive?rq=4)
+- [Learn FastAPI](https://fastapi.tiangolo.com/learn/)
+- 
 
 # Author
 
