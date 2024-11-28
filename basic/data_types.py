@@ -19,3 +19,26 @@ def full_name(first_name: str, last_name: str, middle_name: str = None) -> str:
     return None
 
 
+def to_title_case(items: list[str]) -> list[str]:
+    """As the list is a type that contains some internal types, you put them in square brackets"""
+    title_case_list = []
+    for item in items:
+        title_case_list.append(item.title())
+        # print(item)
+
+    return title_case_list
+
+
+def process_dictionary(prices: dict[str, float] = {}) -> dict[float, list[str]]:
+    items: dict[float, list[str]] = {}
+    # print(f"prices={prices}")
+    if prices:
+        for key, value in prices.items():
+            # print(f"key={key}, value={value}, type={type(value)}, items={items}")
+            # if list(items.keys()).count(value) == 1:
+            if value in items.keys():
+                items[value].append(key)
+            else:
+                items[value] = [key]
+
+    return items
