@@ -2,7 +2,11 @@
 # Author: Rohtash Lakra
 #
 echo
-#python -m unittest discover -s ./tests/blueprints -p "test_*.py"
+#if [[ "$#" -eq 1 ]]; then # Specific Test
+#  python -m unittest discover -s ./tests/ -p "$1"
+#else # No Arguments Supplied
+#  python -m unittest discover -s ./tests/ -p "test_*.py"
+#fi
 python -m unittest
+# python -m unittest tests/core/collection/test_stack.py
 echo
-

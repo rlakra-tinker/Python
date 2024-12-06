@@ -12,7 +12,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Callable, TypeVar, List, Dict, Iterator
 
-from basic.enums import HttpMethodEnum
+from core.enums import HttpMethodEnum
 
 # These type variables are used by the container types.
 _T = TypeVar('T')  # Key type

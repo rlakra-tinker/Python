@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 import unittest
-from basic.query import QueryType, DBUtils
+from core.query import QueryType, DBUtils
 
 
 # Unit-tests for constants

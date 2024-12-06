@@ -4,11 +4,11 @@
 import unittest
 from datetime import date
 
-from basic.enums import BaseEnum, ColorEnum, WeekDaysEnum
-from basic.enums import EvenOddEnum, LogTypeEnum, HttpMethodEnum
-from basic.enums import NumberEnum, ShapeEnum, UniqueShapeEnum
-from basic.enums import OrdinalEnum, LowerCaseOrdinalEnum
-from basic.enums import StatusEnum, AutoNameEnum, AutoNameLowerCaseEnum
+from core.enums import BaseEnum, ColorEnum, WeekDaysEnum
+from core.enums import EvenOddEnum, LogTypeEnum, HttpMethodEnum
+from core.enums import NumberEnum, ShapeEnum, UniqueShapeEnum
+from core.enums import OrdinalEnum, LowerCaseOrdinalEnum
+from core.enums import StatusEnum, AutoNameEnum, AutoNameLowerCaseEnum
 
 
 # Unit-tests for constants

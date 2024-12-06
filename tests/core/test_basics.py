@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 import unittest
-from basic import basics
+from core import basics
 
 
 # Unit-tests for constants

@@ -9,6 +9,7 @@ class Shape:
     def get_color(self):
         return self.__color
 
+
 # Child Class
 class Square(Shape):
 
@@ -17,7 +18,6 @@ class Square(Shape):
         self.name = "Square"
         self._sides = 4
         self.__color = "Red"
-
 
 
 # Shape
@@ -33,4 +33,3 @@ print(square_folder)
 print()
 print(f"__color:{square.__color}")
 print(f"color:{square.get_color()}")
-

@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 from enum import Enum, unique, auto
-from basic.enums import AutoNameEnum
+from core.enums import AutoNameEnum
 
 
 @unique

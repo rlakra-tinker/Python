@@ -2,7 +2,9 @@
 # Author: Rohtash Lakra
 #
 import unittest
-from basic.utils import Utils, JsonUtils
+
+from core.utils import Utils, JsonUtils
+
 
 # Unit-tests for constants
 class UtilsTest(unittest.TestCase):
@@ -43,6 +45,7 @@ class UtilsTest(unittest.TestCase):
         print(json_data)
         print(f"{text} json_data={json_data}")
         self.assertEqual("name", json_data['name'])
+
 
 # Starting point
 if __name__ == 'main':

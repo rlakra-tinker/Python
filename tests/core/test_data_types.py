@@ -4,7 +4,7 @@
 import json
 import unittest
 
-from basic.data_types import full_name, to_title_case, process_dictionary
+from core.data_types import full_name, to_title_case, process_dictionary
 
 
 # Unit-tests for DataTypes

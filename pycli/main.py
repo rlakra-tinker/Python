@@ -3,7 +3,7 @@
 #
 import sys
 
-from basic.time import convert_utc_to_pst
+from core.time import convert_utc_to_pst
 
 
 def main():
