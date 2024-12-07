@@ -3,6 +3,7 @@
 #
 from collections import deque
 from heapq import heappop, heappush
+from itertools import count
 from typing import Any
 
 from core.enums import Priority
@@ -39,9 +40,11 @@ class PriorityQueue:
 
     def __init__(self):
         self._items = []
+        self._couter = count()
 
-    def enqueue(self, priority: Priority, item):
-        heappush(self._items, (-priority.value, item))
+    def enqueue(self, priority: Priority, value):
+        element = (-priority.value, next(self._couter), value)
+        heappush(self._items, element)
 
     def dequeue(self):
-        return heappop(self._items)[1]
+        return heappop(self._items)[-1]
