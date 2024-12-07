@@ -3,7 +3,7 @@
 #
 from core.adts.queue import Queue, PriorityQueue
 from core.enums import Priority
-from tests.core._abstract import AbstractTest, start
+from tests._abstract import AbstractTest, start
 
 
 class QueueTest(AbstractTest):

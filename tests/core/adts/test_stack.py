@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 from core.adts.stack import Stack
-from tests.core._abstract import AbstractTest, start
+from tests._abstract import AbstractTest, start
 
 
 class StackTest(AbstractTest):

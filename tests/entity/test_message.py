@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 from entity.message import Message
-from tests.core._abstract import AbstractTest, start
+from tests._abstract import AbstractTest, start
 
 
 class MessageTest(AbstractTest):

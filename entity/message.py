@@ -8,5 +8,10 @@ from dataclasses import dataclass
 class Message:
     event: str
 
-    def __repr__(self):
+    def __str__(self) -> str:
+        """Returns string representation of this object."""
         return f"Message <event={self.event}>"
+
+    def __repr__(self):
+        """Returns string representation of this object."""
+        return str(self)

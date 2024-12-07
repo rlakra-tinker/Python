@@ -1,7 +1,7 @@
 #
 # Author: Rohtash Lakra
 #
-from tests.core._abstract import AbstractTest, start
+from tests._abstract import AbstractTest, start
 
 
 class ListTest(AbstractTest):

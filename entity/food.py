@@ -1,4 +1,3 @@
-
 # Food Entity
 class Food:
 
@@ -10,13 +9,17 @@ class Food:
         self.ppu = ppu
 
     # String representation
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
+        """Returns string representation of this object."""
         return f'Food <id={self.id}, type={self.type}, name={self.name}, ppu={self.ppu}>'
+
+    def __repr__(self):
+        """Returns string representation of this object."""
+        return str(self)
 
     def print(foods):
         pass
 
+
 cake = Food("0001", "donut", "Cake", 0.55)
 print(cake)
-
-
