@@ -2,7 +2,10 @@
 # Author: Rohtash Lakra
 #
 from collections import deque
+from heapq import heappop, heappush
 from typing import Any
+
+from core.enums import Priority
 
 
 class Queue:
@@ -32,5 +35,13 @@ class Deque(Queue):
     pass
 
 
-class PriorityQueue(Queue):
-    pass
+class PriorityQueue:
+
+    def __init__(self):
+        self._items = []
+
+    def enqueue(self, priority: Priority, item):
+        heappush(self._items, (-priority.value, item))
+
+    def dequeue(self):
+        return heappop(self._items)[1]

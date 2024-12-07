@@ -1,7 +1,7 @@
 #
 # Author: Rohtash Lakra
 #
-from core.collection.stack import Stack
+from core.adts.stack import Stack
 from tests.core._abstract import AbstractTest, start
 
 

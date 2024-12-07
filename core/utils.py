@@ -140,6 +140,11 @@ class Utils(Enum):
         return results
 
     @staticmethod
+    def isValidString(text) -> bool:
+        """Return true if there's only a valid char and excludes whitespace characters and false otherwise."""
+        return True if text and (not text.isspace()) else False
+
+    @staticmethod
     def toStr(class_: _T) -> str:
         strBuilder = class_.__name__ + " <"
         claStr = ''

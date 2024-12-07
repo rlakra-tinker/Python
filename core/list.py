@@ -1,4 +1,4 @@
-# mutable collection
+# mutable adts
 import json
 
 scientist_json = [
@@ -16,7 +16,7 @@ scientist_json = [
     }
 ]
 
-# mutable collection objects
+# mutable adts objects
 print()
 print(scientist_json)
 

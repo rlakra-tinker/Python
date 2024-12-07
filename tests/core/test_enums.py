@@ -8,6 +8,7 @@ from core.enums import BaseEnum, ColorEnum, WeekDaysEnum
 from core.enums import EvenOddEnum, LogTypeEnum, HttpMethodEnum
 from core.enums import NumberEnum, ShapeEnum, UniqueShapeEnum
 from core.enums import OrdinalEnum, LowerCaseOrdinalEnum
+from core.enums import Priority
 from core.enums import StatusEnum, AutoNameEnum, AutoNameLowerCaseEnum
 
 
@@ -355,6 +356,34 @@ class EnumsTest(unittest.TestCase):
         is_patch = isinstance(method, HttpMethodEnum)
         print(f"{method} is instance of {HttpMethodEnum} = {is_patch}")
         self.assertTrue(is_patch)
+        print()
+
+    def test_Priority_enum(self):
+        print("test_Priority_enum")
+        self.assertEqual("<enum 'Priority'>", str(Priority))
+        expected = ('CRITICAL', 'IMPORTANT', 'NEUTRAL')
+        self.assertEqual(expected, Priority.names())
+        expected = (3, 2, 1)
+        self.assertEqual(expected, Priority.values())
+
+        text = 'important'
+        expected = 'Priority <IMPORTANT=2>'
+        print(f"{text} of_name={Priority.of_name(text)}")
+        self.assertEqual(expected, str(Priority.of_name(text)))
+        self.assertTrue(Priority.equals(Priority.IMPORTANT, text))
+        self.assertFalse(Priority.equals(Priority.NEUTRAL, text))
+
+        text = 2
+        print(f"{text} of_value={Priority.of_value(text)}")
+        self.assertEqual(Priority.IMPORTANT, Priority.of_value(text))
+        self.assertTrue(Priority.equals(Priority.IMPORTANT, text))
+        self.assertFalse(Priority.equals(Priority.NEUTRAL, text))
+
+        # check isinstance of
+        priority = Priority.NEUTRAL
+        is_priority = isinstance(priority, Priority)
+        print(f"{priority} is instance of {Priority} = {is_priority}")
+        self.assertTrue(is_priority)
         print()
 
 

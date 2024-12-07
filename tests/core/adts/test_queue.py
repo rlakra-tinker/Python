@@ -1,7 +1,8 @@
 #
 # Author: Rohtash Lakra
 #
-from core.collection.queue import Queue
+from core.adts.queue import Queue, PriorityQueue
+from core.enums import Priority
 from tests.core._abstract import AbstractTest, start
 
 
@@ -74,6 +75,29 @@ class QueueTest(AbstractTest):
         # print items
         for item in queue:
             print(item)
+        print()
+
+    def test_PriorityQueue(self):
+        print("test_PriorityQueue")
+        pq = PriorityQueue()
+        pq.enqueue(Priority.IMPORTANT, "Windshield wipers turned on")
+        pq.enqueue(Priority.NEUTRAL, "Radio station tuned in")
+        pq.enqueue(Priority.CRITICAL, "Brake pedal depressed")
+        pq.enqueue(Priority.IMPORTANT, "Hazard lights turned on")
+        print(f"pq={pq}")
+        self.assertIsNotNone(pq)
+        # self.assertEqual(4, len(pq))
+        print()
+        result = pq.dequeue()
+        print(f"result={result}")
+        # self.assertEqual("('CRITICAL', 'Brake pedal depressed')", str(result))
+        self.assertEqual('Brake pedal depressed', result)
+        print(pq.dequeue())
+        print(pq.dequeue())
+        print(pq.dequeue())
+        # print items
+        # for item in pq:
+        #     print(item)
         print()
 
 

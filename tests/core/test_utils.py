@@ -31,6 +31,16 @@ class UtilsTest(unittest.TestCase):
         print("Generating UUID:")
         print(Utils.generate_uuid())
 
+    def test_isValidString(self):
+        print("test_isValidString")
+        inputs = ['foo', ' ', '\r\n\t', '', None, "", '\r\n\troh']
+        expected = [True, False, False, False, False, False, True]
+        for index, text in enumerate(inputs):
+            isValid = Utils.isValidString(text)
+            print(f"index={index}, text={text}, isValid={isValid}, expected[index]={expected[index]}")
+            self.assertEqual(expected[index], isValid)
+        print()
+
     def test_ensure_valid_dictionary(self):
         print("test_ensure_valid_dictionary")
         self.assertEqual("<enum 'JsonUtils'>", str(JsonUtils))

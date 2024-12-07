@@ -3,7 +3,7 @@
 #
 from typing import Any
 
-from core.collection.queue import Queue
+from core.adts.queue import Queue
 
 
 class Stack(Queue):

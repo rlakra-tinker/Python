@@ -310,3 +310,9 @@ print()
 for hook_type in HookType.names():
     print(f"hook_type={hook_type}, type={type(hook_type)}")
 print()
+
+
+class Priority(BaseEnum):
+    CRITICAL = 3
+    IMPORTANT = 2
+    NEUTRAL = 1

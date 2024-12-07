@@ -3,7 +3,7 @@
 #
 from collections.abc import Container
 
-from core.collection.queue import Queue
+from core.adts.queue import Queue
 
 
 class List(Container):

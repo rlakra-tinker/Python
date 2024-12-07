@@ -8,5 +8,5 @@ echo
 #  python -m unittest discover -s ./tests/ -p "test_*.py"
 #fi
 python -m unittest
-# python -m unittest tests/core/collection/test_stack.py
+# python -m unittest tests/core/adts/test_stack.py
 echo
