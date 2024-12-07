@@ -2,6 +2,7 @@
 # Author: Rohtash Lakra
 # Reference - https://docs.python.org/3/howto/enum.html
 #
+import sys
 from datetime import date
 from enum import Enum, auto, unique, IntEnum, IntFlag
 from typing import Any
@@ -236,8 +237,6 @@ class LogTypeEnum(BaseEnum, IntEnum):
     ERROR = auto()
 
 
-import sys
-
 print()
 print(f"Sys Version: {sys.version_info}")
 print()
@@ -312,7 +311,13 @@ for hook_type in HookType.names():
 print()
 
 
-class Priority(BaseEnum):
+class MessagePriority(BaseEnum):
     CRITICAL = 3
     IMPORTANT = 2
     NEUTRAL = 1
+
+
+class Priority(BaseEnum, IntEnum):
+    HIGH = 3
+    MEDIUM = 2
+    LOW = 1
