@@ -1,7 +1,7 @@
 #
 # Author: Rohtash Lakra
 #
-from tests._abstract import AbstractTest, start
+from tests._abstract import AbstractTest
 
 
 class ListTest(AbstractTest):
@@ -11,4 +11,4 @@ class ListTest(AbstractTest):
 
 # Starting point
 if __name__ == 'main':
-    start(False)
+    ListTest().start()

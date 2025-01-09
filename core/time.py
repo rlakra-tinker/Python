@@ -87,7 +87,8 @@ if __name__ == '__main__':
     print()
 
     print()
-    utc_time = '2024-11-08 13:50:33'
-    print(f"utc_time={utc_time}, utc_to_pst={convert_utc_to_pst(utc_time)}")
-    # print(f"utc_time={utc_time}, utc_to_pst={utc_to_pst(utc_time)}")
-    print()
+    utc_times = ['2024-12-20 18:55:17', '2024-12-20 19:56:09']
+    for utc_time in utc_times:
+        print(f"utc_time={utc_time}, utc_to_pst={convert_utc_to_pst(utc_time)}")
+        # print(f"utc_time={utc_time}, utc_to_pst={utc_to_pst(utc_time)}")
+        print()

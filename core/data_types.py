@@ -1,6 +1,9 @@
 #
 # Author: Rohtash Lakra
 #
+import inspect
+
+
 def full_name(first_name: str, last_name: str, middle_name: str = None) -> str:
     """Returns the full-name based on the provided parameters"""
     if first_name and middle_name and last_name:
@@ -42,3 +45,14 @@ def process_dictionary(prices: dict[str, float] = {}) -> dict[float, list[str]]:
                 items[value] = [key]
 
     return items
+
+
+def getClassName(self) -> str:
+    """Returns the name of the class."""
+    return type(self).__name__
+
+
+def getMethodName(self) -> str:
+    """Returns the name of the class."""
+    # return type(self).__qualname__
+    return inspect.stack()[0][3]

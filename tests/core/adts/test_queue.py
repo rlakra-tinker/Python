@@ -1,9 +1,13 @@
 #
 # Author: Rohtash Lakra
 #
+import logging
+
 from core.adts.queue import Queue, PriorityQueue
-from core.enums import Priority
-from tests._abstract import AbstractTest, start
+from core.enums import MessagePriority
+from tests._abstract import AbstractTest
+
+logger = logging.getLogger(__name__)
 
 
 class QueueTest(AbstractTest):
@@ -78,12 +82,13 @@ class QueueTest(AbstractTest):
         print()
 
     def test_PriorityQueue(self):
-        print("test_PriorityQueue")
+        logger.debug("+test_PriorityQueue()")
+
         pq = PriorityQueue()
-        pq.enqueue(Priority.IMPORTANT, "Windshield wipers turned on")
-        pq.enqueue(Priority.NEUTRAL, "Radio station tuned in")
-        pq.enqueue(Priority.CRITICAL, "Brake pedal depressed")
-        pq.enqueue(Priority.IMPORTANT, "Hazard lights turned on")
+        pq.enqueue(MessagePriority.IMPORTANT, "Windshield wipers turned on")
+        pq.enqueue(MessagePriority.NEUTRAL, "Radio station tuned in")
+        pq.enqueue(MessagePriority.CRITICAL, "Brake pedal depressed")
+        pq.enqueue(MessagePriority.IMPORTANT, "Hazard lights turned on")
         print(f"pq={pq}")
         self.assertIsNotNone(pq)
         # self.assertEqual(4, len(pq))
@@ -98,9 +103,11 @@ class QueueTest(AbstractTest):
         # print items
         # for item in pq:
         #     print(item)
+
+        logger.debug("-test_PriorityQueue()")
         print()
 
 
 # Starting point
 if __name__ == 'main':
-    start(False)
+    QueueTest().start()

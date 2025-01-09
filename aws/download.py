@@ -2,6 +2,7 @@
 # Author: Rohtash Lakra
 #
 import csv
+import json
 from io import BytesIO, TextIOWrapper
 from io import StringIO
 
@@ -43,16 +44,58 @@ class S3Client:
         for row in reader:
             print(f"row={row}")
 
+    def jsonWriter(self, filepath: str, data):
+        """Writes data to filepath"""
+        with open(filepath, 'w', encoding='utf-8') as csvfile:
+            json.dump(data, csvfile, ensure_ascii=False, indent=4)
+
     def readCsvWithPandas(self, csv_bytes):
         # Read the CSV data into a DataFrame
-        print("readCsvWithPandas")
+        print(f"readCsvWithPandas => csv_bytes={csv_bytes}")
         csv_bytes.seek(0)
         df = pd.read_csv(csv_bytes)
-        print("reading pandas")
-        print(df)
+        print(f"reading pandas => df=\n{df}")
 
+        # iterate CSV entries
+        # for index, (key, value) in enumerate(df.items()):
+        #     print(f"Iterating index={index}, key={key}, value={value}")
+        #     for i, email in enumerate(value):
+        #         if not pd.isna(email):
+        #             print(f"Iterating i={i}, email={email}")
+
+        # allEmails = []
+        # for index, (key, value) in enumerate(df.items()):
+        #     # print(f"Iterating index={index}, key={key}, value={value}")
+        #     # only read email and avoid other values like index
+        #     emails = [email for _, email in enumerate(value) if not pd.isna(email)]
+        #     # print(f"List of [{len(emails)}] emails={emails}")
+        #     allEmails.extend(emails)
+        #
+        # print(f"List of [{len(allEmails)}] emails={allEmails}")
+
+        csvFileContents = dict()
         for index, (key, value) in enumerate(df.items()):
-            print(f"index={index}, key={key}, value={value}")
+            # print(f"Iterating index={index}, key={key}, value={value}")
+            emails = [email for _, email in enumerate(value) if not pd.isna(email)]
+            csvFileContents[key] = emails
+
+        # print(f"List of [{len(csvFileContents)}] csvFileContents={csvFileContents}")
+        print()
+        self.jsonWriter('data.json', csvFileContents)
+
+        # emails = [value for key, value in csvFileContents.items()]
+        emails = []
+        for key, value in csvFileContents.items():
+            print(f"Iterating key={key}")
+            emails.extend(value)
+
+        # write all emails
+        # emails = []
+        # for key, value in enumerate(csvFileContents):
+        #     emails.extend(value)
+        # emails = [value for key, value in csvFileContents]
+        self.jsonWriter('emails.json', emails)
+        # print(f"{json.dumps(csvFileContents)}")
 
         print()
         column_names, columns = zip(*df.items())

@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 from core.adts.stack import Stack
-from tests._abstract import AbstractTest, start
+from tests._abstract import AbstractTest
 
 
 class StackTest(AbstractTest):
@@ -66,4 +66,4 @@ class StackTest(AbstractTest):
 
 # Starting point
 if __name__ == 'main':
-    start(False)
+    StackTest().start()

@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 from entity.city import City
-from tests._abstract import AbstractTest, start
+from tests._abstract import AbstractTest
 
 
 class CityTest(AbstractTest):
@@ -29,4 +29,4 @@ class CityTest(AbstractTest):
 
 # Starting point
 if __name__ == 'main':
-    start(exit=False)
+    CityTest().start()

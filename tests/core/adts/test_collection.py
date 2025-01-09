@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 
-from tests._abstract import AbstractTest, start
+from tests._abstract import AbstractTest
 
 
 class CollectionTest(AbstractTest):
@@ -83,4 +83,4 @@ class CollectionTest(AbstractTest):
 
 # Starting point
 if __name__ == 'main':
-    start(False)
+    CollectionTest().start()

@@ -1,9 +1,10 @@
 #
 # Author: Rohtash Lakra
 #
+from random import randint
 from threading import Thread
 from time import sleep
-from random import randint
+
 
 class Worker(Thread):
 
@@ -26,7 +27,6 @@ class Worker(Thread):
         if self.working:
             return f"{self.progress} ({self.progress})"
         return ":Worker: Idle"
-
 
     def simulate_idle(self):
         self.product = None

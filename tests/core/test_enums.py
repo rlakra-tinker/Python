@@ -1,6 +1,7 @@
 #
 # Author: Rohtash Lakra
 #
+import logging
 import unittest
 from datetime import date
 
@@ -10,6 +11,8 @@ from core.enums import NumberEnum, ShapeEnum, UniqueShapeEnum
 from core.enums import OrdinalEnum, LowerCaseOrdinalEnum
 from core.enums import Priority
 from core.enums import StatusEnum, AutoNameEnum, AutoNameLowerCaseEnum
+
+logger = logging.getLogger(__name__)
 
 
 # Unit-tests for constants
@@ -358,32 +361,34 @@ class EnumsTest(unittest.TestCase):
         self.assertTrue(is_patch)
         print()
 
-    def test_Priority_enum(self):
-        print("test_Priority_enum")
+    def test_priority_enum(self):
+        logger.debug("+test_priority_enum()")
         self.assertEqual("<enum 'Priority'>", str(Priority))
-        expected = ('CRITICAL', 'IMPORTANT', 'NEUTRAL')
+        expected = ('HIGH', 'MEDIUM', 'LOW')
         self.assertEqual(expected, Priority.names())
         expected = (3, 2, 1)
         self.assertEqual(expected, Priority.values())
 
-        text = 'important'
-        expected = 'Priority <IMPORTANT=2>'
+        text = 'MEDIUM'
+        expected = 'Priority <MEDIUM=2>'
         print(f"{text} of_name={Priority.of_name(text)}")
         self.assertEqual(expected, str(Priority.of_name(text)))
-        self.assertTrue(Priority.equals(Priority.IMPORTANT, text))
-        self.assertFalse(Priority.equals(Priority.NEUTRAL, text))
+        self.assertTrue(Priority.equals(Priority.MEDIUM, text))
+        self.assertFalse(Priority.equals(Priority.LOW, text))
 
         text = 2
         print(f"{text} of_value={Priority.of_value(text)}")
-        self.assertEqual(Priority.IMPORTANT, Priority.of_value(text))
-        self.assertTrue(Priority.equals(Priority.IMPORTANT, text))
-        self.assertFalse(Priority.equals(Priority.NEUTRAL, text))
+        self.assertEqual(Priority.MEDIUM, Priority.of_value(text))
+        self.assertTrue(Priority.equals(Priority.MEDIUM, text))
+        self.assertFalse(Priority.equals(Priority.LOW, text))
 
         # check isinstance of
-        priority = Priority.NEUTRAL
+        priority = Priority.LOW
         is_priority = isinstance(priority, Priority)
         print(f"{priority} is instance of {Priority} = {is_priority}")
         self.assertTrue(is_priority)
+
+        logger.debug("+test_priority_enum()")
         print()
 
 

@@ -2,7 +2,7 @@
 # Author: Rohtash Lakra
 #
 from entity.message import Message
-from tests._abstract import AbstractTest, start
+from tests._abstract import AbstractTest
 
 
 class MessageTest(AbstractTest):
@@ -20,4 +20,4 @@ class MessageTest(AbstractTest):
 
 # Starting point
 if __name__ == 'main':
-    start(exit=False)
+    MessageTest().start()

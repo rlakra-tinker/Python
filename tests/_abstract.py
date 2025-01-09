@@ -4,11 +4,8 @@
 import unittest
 
 
-# Unit-tests for constants
 class AbstractTest(unittest.TestCase):
-    """Unit-tests for AbstractTest"""
-    pass
+    """The AbstractTest is the base class for all unit-tests."""
 
-
-def start(exit: bool = False):
-    unittest.main(exit=exit)
+    def start(self, exit: bool = False):
+        unittest.main(exit=exit)
