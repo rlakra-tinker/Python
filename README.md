@@ -143,7 +143,7 @@ i.e.:
 - [Gunicorn Architecture](https://docs.gunicorn.org/en/latest/design.html)
 - [How many concurrent requests does a single Flask process receive?](https://stackoverflow.com/questions/10938360/how-many-concurrent-requests-does-a-single-flask-process-receive?rq=4)
 - [Learn FastAPI](https://fastapi.tiangolo.com/learn/)
-- 
+- [Array](https://docs.python.org/3/library/array.html)
 
 # Author
 
