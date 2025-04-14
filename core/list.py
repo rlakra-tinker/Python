@@ -202,8 +202,6 @@ def print_dictionary(items):
 
 print_dictionary(foods_json)
 
-
-
 # def printFoods(food):
 #     print("----------------> food object < --------------")
 #     print(food)
@@ -220,6 +218,7 @@ print_dictionary(foods_json)
 #
 from enums import Enum
 
+
 class FoodField(Enum):
     ID = "id"
     TYPE = "type"
@@ -234,17 +233,17 @@ print(FoodField.ID)
 print(f"FoodField <FoodField.ID={FoodField.ID}, name={FoodField.ID.name}, value={FoodField.ID.value}>")
 print()
 
-
 # Build named tuple
 Food = collections.namedtuple("Food", ["id", "type", "name", "ppu"])
 
-def convert_dictiony_to_named_tuple(food):
+
+def to_named_tuple(food: Food):
     return Food(id=food["id"], type=food["type"], name=food["name"], ppu=food["ppu"])
 
 
 foods = []
 for food in foods_json:
-    foods.append(convert_dictiony_to_named_tuple(food))
+    foods.append(to_named_tuple(food))
     # foods.append(Food(id=food["id"], type=food["type"], name=food["name"], ppu=food["ppu"]))
 
 print("----------------> foods < --------------")
@@ -262,7 +261,6 @@ action = """
         }
     }
 """
-
 
 action_json = json.loads(action)
 print(action_json)
