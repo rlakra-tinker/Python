@@ -5,6 +5,7 @@
 The ```Python``` repository helps in the learning of the python language.
 
 
+
 ## Folder Structure Conventions
 
 ---
@@ -16,7 +17,19 @@ The ```Python``` repository helps in the learning of the python language.
     ├── libs                    # The libs module
     ├── module                  # The name of the module
     └── README.md
+    
 ```
+
+## Python Projects Structures
+
+| Folder | Description |
+|:---|:---|
+|/apidoc|the doc-generated API docs|
+|/code|the project files|
+|/doc|the documentation|
+|/lib|the C-language libraries|
+|/scripts or /bin|the that kind of command-line interface stuff|
+|/tests|the tests of the project|
 
 
 # Building Application
@@ -34,26 +47,34 @@ python3 -m venv venv
 ```source``` is Linux/macOS command and doesn't work in Windows.
 
 - Windows
-
-    ```shell
-    venv\Scripts\activate
-    ```
+```shell
+venv\Scripts\activate
+```
 
 - Mac OS/Linux
+```shell
+source venv/bin/activate
 
-    ```shell
-    source venv/bin/activate
-  
-  OR
-  
-    . ./venv/bin/activate  
-    ```
+OR
 
-The parenthesized (venv) in front of the prompt indicates that you’ve successfully activated the virtual environment.
+. ./venv/bin/activate  
+```
+
+Output:
+```
+(venv) rslakra@YVXKPJV2CN Python % 
+```
+
+The parenthesized ```(venv)``` in front of the prompt indicates that you’ve successfully activated the virtual environment.
 
 ## Deactivate Virtual Env
 ```shell
 deactivate
+```
+
+Output:
+```
+rslakra@YVXKPJV2CN % 
 ```
 
 ## Upgrade ```pip``` release
@@ -64,6 +85,17 @@ pip install --upgrade pip
 
 ## Install Packages
 
+- Install at system level
+```shell
+brew install python-requests
+```
+
+- Install in specific Virtual Env
+```shell
+pip install requests
+pip install beautifulsoup4
+python3 -m pip install requests
+```
 
 
 ## Install Requirements
@@ -72,7 +104,6 @@ pip install --upgrade pip
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 ```
-
 
 
 ## Save Requirements (Dependencies)
@@ -145,8 +176,18 @@ i.e.:
 - [Learn FastAPI](https://fastapi.tiangolo.com/learn/)
 - [Array](https://docs.python.org/3/library/array.html)
 
+- [Beautiful Soup Documentation](https://beautiful-soup-4.readthedocs.io/en/latest/#quick-start)
+
+- [Weather-App](https://github.com/israel-dryer/Weather-App/tree/master)
+- [Web-Scraping-Projects](https://github.com/israel-dryer/Web-Scraping-Projects?tab=readme-ov-file)
+
+- [Python Projects – Beginner to Advanced](https://www.geeksforgeeks.org/python-projects-beginner-to-advanced/)
+- [The HitchHiker's Guide to Python](https://docs.python-guide.org/writing/structure/)
+
+
 # Author
 
 ---
 
 - Rohtash Lakra
+
