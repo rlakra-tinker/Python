@@ -69,6 +69,9 @@ setup:
 	python3 -m $(VENV) $(VENV)
 	#source $(VENV)/bin/activate
 	. $(VENV)/bin/activate
+	@echo
+	(pwd)
+	@echo
 	$(PIP) install --upgrade pip
 	$(PYTHON) -m pip install -r requirements.txt
 
@@ -78,7 +81,8 @@ clean:
 	@echo "Cleaning up ..."
 	#$(VENV)/bin/deactivate
 	#deactivate
-	rm -rf $(VENU)
+	@echo "Removing $(VENV)"
+	rm -rf $(VENV)
 	rm -rf $(REMOVE_FILES) *.project
 	find . -name '*.py[co]' -delete
 	find . -type f -name '*.py[co]' -delete
@@ -86,7 +90,7 @@ clean:
 venv: ## Activates the virtual environment
 venv:
 	@echo "Activating Virtual Environment ..."
-	source $(VENU)/bin/activate
+	source $(VENV)/bin/activate
 
 run: ## Runs the python application
 run: venv
